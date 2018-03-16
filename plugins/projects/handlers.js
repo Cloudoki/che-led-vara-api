@@ -5,15 +5,17 @@ const db = require('data');
 const setProjects = {
 	description: 'Lists existing users',
 	validate: {
-		payload: Joi.array().items(Joi.object({
-			id: Joi.string().required(),
-			ledBuild: Joi.number().integer(),
-			ledMonitor: Joi.number().integer(),
-			monitorUrl: Joi.string()
-		}))		
+		payload: {
+			data: Joi.array().items(Joi.object({
+				id: Joi.string().required(),
+				ledBuild: Joi.number().integer(),
+				ledMonitor: Joi.number().integer(),
+				monitorUrl: Joi.string()
+			}))
+		}
 	},
 	handler: async (request) => {
-		let newProjConfs = request.payload;
+		let newProjConfs = request.payload.data;
 
 		// Delete webhooks for each removed project, if any
 		for (let storedConf of db.get()) {
