@@ -1,9 +1,141 @@
 <html>
-<body>
-<div>
-    <h1><%= title %></h1>
-    <p><%= message %></p>
-</div>
+    <head>
+        <link rel="stylesheet" href="http://localhost:3000/media/css/bootstrap.min.css" />
+    </head>
+    <body>
+        <div id="list_container" class="col-md-8 col-xs-12 text-center"> 
+            <h1>Projects</h1>
+            <ul class="list-group" id="project_list">
+                <% projects.forEach(function (project) { %>
+                    <li class="list-group-item projects_with_leds" data-id="<%=project.semaphoreId%>"
+                        data-led="<%=project.led%>" data-title="<%=project.title%>" 
+                        data-ledmonitor="<%=project.ledMonitor%>" data-monitorUrl="<%=project.monitorUrl%>" > 
+                        <%=project.title%>
+                        <!--<span class="badge badge-warning">Edit</span>-->
+                        <button type="button" class="close remove_project" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </li>    
+                <% }) %>
+            </ul>
+        </div>
+        <br/>
+        <div id="form_container" class=" col-md-8 col-xs-12 text-center"> 
+            <form id ="add_project_form" >
+                <div class="input-group">
+                    <select class="custom-select" id="project_select_box">
+                        <% freeProjects.forEach(function (project) { %>
+                            <option value="<%=project.semaphoreId%>">  <%=project.title%></option>
+                        <% }) %>
+                    </select>
+                    <div class="input-group-append">
+                        <input type"text" id="ping_url" class="form-control" placeholder="Monitor URL(optional)"/>
+                        <input type"number" id="led_number" class="form-control" placeholder="Led Build" required/>
+                        <input type"number" id="led_monitor" class="form-control" placeholder="Led Monitor(opt)" required/>
+                        <button class="btn  btn-success" id="add_project_button" type="button">Add project</button>    
+                    </div>
+                </div>
+                <br/>
+                <div class="alert alert-danger error" role="alert" style="display:none;">
+                        
+                </div>
+                <br/>
+                <button type="btn btn-info" class="close" id="save_changes" aria-label="Close">
+                    Save this
+                    <img src="http://localhost:3000/media/images/cheButton.jpg" alt="Che button" style="border-radius:50%;max-width:100px;"/>
+                </button>
+            </form>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function removeProject(evt) {
+            var data = $(this).parent().data();
+            var led = data.led;
+            var id = data.id;
+            var title = data.title
+            $("#project_select_box").append(
+                $("<option></option>")
+                    .attr("value",id)
+                    .text(title)
+            ); 
+            $(this).parent().remove();
+        }
 
-</body>
+        $(document).ready(function() {
+
+            $(".remove_project").click(removeProject);
+
+            $("#add_project_button").click(function(evt) {
+                var led = $("#led_number").val();
+                var ledMonitor = $("#led_monitor").val() ? $("#led_monitor").val() : 0;
+                var monitorUrl = $("#ping_url").val() ? $("#ping_url").val() : "";
+                var error = 0;
+                if(led) {
+                    $(".projects_with_leds").each(function (element) { 
+                        if($(this).data("led") == led || $(this).data("ledmonitor") == led
+                        || (ledMonitor && (
+                            $(this).data("led") == ledMonitor || $(this).data("ledmonitor") == ledMonitor 
+                            || led == ledMonitor)))  
+                            error = "Led invalid";
+                    }); 
+                    if(!error) {
+                        var selectedProject = $("#project_select_box").find(":selected");
+                        var li = $("<li></li>")
+                            .attr("data-led", led)
+                            .attr("data-ledmonitor", ledMonitor)
+                            .attr("data-monitorUrl", monitorUrl)
+                            .attr("data-id", selectedProject.val())
+                            .attr("data-title",selectedProject.text())
+                            .attr("class","list-group-item projects_with_leds")
+                            .text(selectedProject.text());
+                        var button = $("<button></button>")
+                                .attr("class","close remove_project")
+                                .attr("aria-label","Close")
+                                .click(removeProject);
+                        var span = $("<span></span>")
+                                    .attr("aria-hidden", "true")
+                                    .text("x");
+                        span.appendTo(button);
+                        button.appendTo(li);
+                        li.appendTo("#project_list");
+                        selectedProject.remove();
+                        error = 0;
+                        $(".error").text("").hide();
+                        $("#led_number").val("");
+                        $("#led_monitor").val("");
+                        $("#ping_url").val("");
+                    }
+                } else 
+                    error = "Led is required";
+ 
+                if(error)
+                    $(".error").text(error).show();
+                
+            });
+
+            $("#save_changes").click(function(evt) {
+                evt.preventDefault();
+                var data = [];
+                $(".projects_with_leds").each(function (index) { 
+                    var ledMonitor = $(this).data("ledmonitor");
+                    var url = $(this).data("monitorurl");
+                    var dataElement = {
+                        id: $(this).data("id"),
+                        ledBuild: $(this).data("led"),
+                    };
+                    if(ledMonitor) dataElement.ledMonitor = ledMonitor;
+                    if(url) dataElement.monitorUrl= url
+                    
+                    data.push(dataElement);
+                });
+                //[{"id", "ledBuild", "ledMonitor", "monitorUrl"},...]
+                console.log("Hit the endpoint man!");
+                console.log(data);
+            });
+        });
+        
+    </script>
 </html>
