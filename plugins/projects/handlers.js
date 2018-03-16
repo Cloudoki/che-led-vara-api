@@ -39,7 +39,7 @@ const setProjects = {
 				}
 			}
 			if (isNew) {
-				newProjConfs[i].hookId = semaphoreApi.createWebHook(storedConf.id);
+				newProjConfs[i].hookId = semaphoreApi.createWebHook(newProjConfs.id);
 			}
 		}
 
