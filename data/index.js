@@ -22,7 +22,7 @@ let db = [];
  */
 
 const load = () => {
-	return fs.readFile(dbPath)
+	return fs.readFileAsync(dbPath)
 		.then((data) => {
 			db = data;
 			return db;
@@ -30,7 +30,7 @@ const load = () => {
 };
 
 const save = (data) => {
-	return fs.writeFile(dbPath, data)
+	return fs.writeFileAsync(dbPath, data)
 		.then((data) => {
 			db = data;
 			return db;
