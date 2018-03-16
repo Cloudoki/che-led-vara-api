@@ -6,11 +6,6 @@ module.exports = {
 
 		server.route([
 			{
-				method: 'GET',
-				path: '/projects',
-				options: handlers.getProjects
-			},
-			{
 				method: 'POST',
 				path: '/projects',
 				options: handlers.setProjects

@@ -1,7 +1,7 @@
 const request = require('request-promise');
 const config = require('config');
 
-const listOrganizationProjects = () => {
+const listOrganizationProjects = async () => {
 	const options = {
     uri: config.sempahore.v2BaseUrl + '/orgs/' + config.sempahore.organization,
     headers: {
@@ -13,7 +13,7 @@ const listOrganizationProjects = () => {
 	return request(options);
 };
 
-const createWebHook = (projectId) => {
+const createWebHook = async (projectId) => {
 	const options = {
 		method: 'POST',
     uri: config.sempahore.v1BaseUrl + '/projects/' + projectId,
@@ -30,7 +30,7 @@ const createWebHook = (projectId) => {
 	return request(options);
 };
 
-const deleteWebHook = (projectId, hookId) => {
+const deleteWebHook = async (projectId, hookId) => {
 	const options = {
 		method: 'DELETE',
     uri: config.sempahore.baseUrl + '/projects/' + projectId + '/hooks/' + hookId,

@@ -41,7 +41,7 @@ const get = () => {
 	return db;
 };
 
-const set = (data) => {
+const set = async (data) => {
 	db = data;
 	return save(data);
 };
