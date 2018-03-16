@@ -5,6 +5,21 @@ const dbPath = __dirname + "/db.json";
 
 let db = [];
 
+
+/** 
+ * Db structure
+ * 
+ * {	
+ * 		semaphoreId: {
+ * 				leds: {
+ * 						build: 1
+ * 						status: 2
+ * 				},
+ * 				monitoringUrl: "blabla.com"
+ * 		}
+ * }
+ */
+
 const load = () => {
 	return fs.readFile(dbPath)
 		.then((data) => {
@@ -32,5 +47,5 @@ const set = (data) => {
 
 module.exports = {
 	get,
-	add
+	set
 };
