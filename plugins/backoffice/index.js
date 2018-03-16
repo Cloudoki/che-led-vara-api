@@ -6,11 +6,11 @@ module.exports = {
 	register: async (server) => {
 
 		server.route([
-				{
-						method: 'GET',
-						path: '/admin',
-						options: handlers.dashboardView
-				}
+			{
+				method: 'GET',
+				path: '/admin',
+				options: handlers.dashboardView
+			}
 		]);
 		
 		server.views({
