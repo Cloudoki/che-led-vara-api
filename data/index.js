@@ -30,7 +30,7 @@ const load = () => {
 };
 
 const save = (data) => {
-	return fs.writeFileAsync(dbPath, data)
+	return fs.writeFileAsync(dbPath, JSON.stringify(data))
 		.then((data) => {
 			db = data;
 			return db;
