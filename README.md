@@ -21,7 +21,7 @@ Create a "simple" integration between Semaphore's API and multiple LED strips.
 There needs to be an admin interface where one can assign a specific LED strip, to a speficic repo. Ideally, each repo would have two different LED stips, one for deploy status and another to monitor the uptime.
 
 #### Stack
-@Miguel 
+@Miguel @Alvaro
 
 #### Estimation
 6 Days
