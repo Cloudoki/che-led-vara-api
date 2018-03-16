@@ -3,7 +3,7 @@ const config = require('config');
 
 const listOrganizationProjects = async () => {
 	const options = {
-    uri: config.semaphore.v2BaseUrl + '/orgs/' + config.sempahore.organization,
+    uri: config.semaphore.v2BaseUrl + '/orgs/' + config.semaphore.organization,
     headers: {
 			authorization: 'Token ' + config.semaphore.authToken
     },
