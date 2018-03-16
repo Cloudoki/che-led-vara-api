@@ -3,7 +3,7 @@ const config = require('config');
 
 const listOrganizationProjects = async () => {
 	const options = {
-    uri: config.sempahore.v2BaseUrl + '/orgs/' + config.sempahore.organization,
+    uri: config.semaphore.v2BaseUrl + '/orgs/' + config.sempahore.organization,
     headers: {
 			authorization: 'Token ' + config.semaphore.authToken
     },
@@ -16,7 +16,7 @@ const listOrganizationProjects = async () => {
 const createWebHook = async (projectId) => {
 	const options = {
 		method: 'POST',
-    uri: config.sempahore.v1BaseUrl + '/projects/' + projectId,
+    uri: config.semaphore.v1BaseUrl + '/projects/' + projectId,
     headers: {
 			authorization: 'Token ' + config.semaphore.authToken
     },
@@ -33,7 +33,7 @@ const createWebHook = async (projectId) => {
 const deleteWebHook = async (projectId, hookId) => {
 	const options = {
 		method: 'DELETE',
-    uri: config.sempahore.baseUrl + '/projects/' + projectId + '/hooks/' + hookId,
+    uri: config.semaphore.baseUrl + '/projects/' + projectId + '/hooks/' + hookId,
     headers: {
 			authorization: 'Token ' + config.semaphore.authToken
     },
