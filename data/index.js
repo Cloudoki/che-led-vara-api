@@ -15,7 +15,8 @@ let db = [];
  * 						build: 1
  * 						status: 2
  * 				},
- * 				monitoringUrl: "blabla.com"
+ * 				monitoringUrl: "blabla.com",
+ * 				hookId: 345
  * 		}
  * }
  */
