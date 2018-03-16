@@ -46,3 +46,7 @@ const setProjects = {
 		return await db.set(newProjConfs);
 	}
 };
+
+module.exports = {
+	setProjects
+};
