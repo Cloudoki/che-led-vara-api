@@ -57,4 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# Local env var file
 local.conf
+
+# Local db
+db.json
