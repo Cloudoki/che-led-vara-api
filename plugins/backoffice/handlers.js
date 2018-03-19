@@ -6,13 +6,11 @@ module.exports = {};
 module.exports.dashboardView = {
 	description: 'Serves dashboard',
 	handler: async (request, h) => {
-		const existingProjects = await sempahoreApiClient.listOrganizationProjects();
-		const possibleProjects = await db.get();
-		console.log(existingProjects);
-		console.log(possibleProjects);
+		const projectsWithoutLed = await sempahoreApiClient.listOrganizationProjects();
+		const projectsWithLed = await db.get();
 		const data = {
-			projects: existingProjects,
-			freeProjects: possibleProjects,
+			projects: projectsWithLed,
+			freeProjects: projectsWithoutLed,
 		};
 
     return h.view('dashboard', data);
