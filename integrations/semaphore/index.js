@@ -16,7 +16,7 @@ const listOrganizationProjects = async () => {
 const createWebHook = async (projectId) => {
 	const options = {
 		method: 'POST',
-    uri: config.semaphore.v1BaseUrl + '/projects/' + projectId,
+    uri: config.semaphore.v1BaseUrl + '/projects/' + projectId + '/hooks',
     headers: {
 			authorization: 'Token ' + config.semaphore.authToken
     },
