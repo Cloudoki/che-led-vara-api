@@ -5,7 +5,6 @@ const dbPath = __dirname + "/db.json";
 
 let db = [];
 
-
 /** 
  * Db structure
  * 

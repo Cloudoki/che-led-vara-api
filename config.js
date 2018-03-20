@@ -2,9 +2,20 @@ module.exports = {
 	env: 'development',
 	publicHost: 'http://localhost',
 	webhooksPath: '/webhooks/',
-	server: {
-  	host: '0.0.0.0',
-    port: 3000
+	servers: {
+		restApi: {
+			config: {
+				host: '0.0.0.0',
+				port: 3000
+			}
+		},
+		socketio: {
+			config: {
+				host: '0.0.0.0',
+				port: 3001
+			},
+			token: process.env['SOCKET_AUTH_TOKEN']
+		}
 	},
 	semaphore: {
 		v2BaseUrl: 'https://api.semaphoreci.com/v2',

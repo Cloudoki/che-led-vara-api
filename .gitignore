@@ -61,4 +61,4 @@ typings/
 local.conf
 
 # Local db
-db.json
+data/db.json
