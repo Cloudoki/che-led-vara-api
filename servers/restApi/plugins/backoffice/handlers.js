@@ -9,8 +9,8 @@ module.exports.dashboardView = {
 		const projectsWithoutLed = await sempahoreApiClient.listOrganizationProjects();
 		const projectsWithLed = await db.get();
 		const data = {
-			projects: projectsWithLed,
-			freeProjects: projectsWithoutLed,
+			projectsWithLed: projectsWithLed,
+			projectsWithoutLed: projectsWithoutLed,
 		};
 
     return h.view('dashboard', data);

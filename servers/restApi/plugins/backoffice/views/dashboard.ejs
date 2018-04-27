@@ -6,7 +6,7 @@
         <div id="list_container" class="col-md-8 col-xs-12 text-center"> 
             <h1>Projects</h1>
             <ul class="list-group" id="project_list">
-                <% projects.forEach(function (project) { %>
+                <% projectsWithLed.forEach(function (project) { %>
                     <a class="list-group-item" data-id="<%=project.semaphoreId%>"
                         data-led="<%=project.led%>" data-title="<%=project.title%>" 
                         data-ledmonitor="<%=project.ledMonitor%>" data-monitorUrl="<%=project.monitorUrl%>" 
@@ -26,7 +26,7 @@
             <div >
                 <div class="form-group" >
                     <select class="custom-select form-control" id="project_select_box">
-                        <% freeProjects.forEach(function (project) { %>
+                        <% projectsWithoutLed.forEach(function (project) { %>
                             <option value="<%=project.id%>">  <%=project.name%></option>
                         <% }) %>
                     </select>
@@ -170,8 +170,7 @@
                     var leddeploy = $(this).data("leddeploy");
                     var url = $(this).data("monitorurl");
                     var dataElement = {
-                        id: $(this).data("id"),
-                        internalId: $(this).data("uuid"),
+                        id: $(this).data("uuid"),
                         ledBuild: $(this).data("led"),
                     };
                     if(ledMonitor) dataElement.ledMonitor = ledMonitor;
