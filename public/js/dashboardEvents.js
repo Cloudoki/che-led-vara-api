@@ -16,9 +16,13 @@ function addProject(hooksUrl) {
     var ledMonitor = $("#led_monitor").val() ? $("#led_monitor").val() : 0;
     var ledDeploy = $("#led_deploy").val() ? $("#led_deploy").val() : 0;
     var monitorUrl = $("#ping_url").val() ? $("#ping_url").val() : "";
+    var selectedTitle = $("#project_select_box").find(":selected").text();
+    var selectedEnvironment = $("#environment_select_box").find(":selected");
     var error = 0;
     if(led) {
         $(".projects_with_leds").each(function (element) { 
+            if(selectedTitle == $(this).data("title") && selectedEnvironment.val() == $(this).data("environment"))
+                error = "That project is already in the above list";
             if(
                 //Check the main led is unique
                 $(this).data("led") == led || $(this).data("ledmonitor") == led || $(this).data("leddeploy") == led
@@ -38,7 +42,6 @@ function addProject(hooksUrl) {
         if(!error) {
             var itemClass = $(".projects_with_leds").length % 2 == 0 ? "list-group-item-info" : "list-group-item-secondary";
             var selectedProject = $("#project_select_box").find(":selected");
-            var selectedEnvironment = $("#environment_select_box").find(":selected");
             var uuid = guid();
             var a = $("<a></a>")
                 .attr("data-led", led)
