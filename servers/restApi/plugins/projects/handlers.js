@@ -4,14 +4,15 @@ const db = require('data');
 const pingService = require('services/ping')
 
 const setProjects = {
-	description: 'Lists existing users',
+	description: 'Adds/replaces projects',
 	validate: {
 		payload: Joi.array().items(Joi.object({
 			id: Joi.string().required(),
 			ledBuild: Joi.number().integer(),
 			ledMonitor: Joi.number().integer(),
 			ledDeploy: Joi.number().integer(),
-			monitorUrl: Joi.string()
+			monitorUrl: Joi.string(),
+			environment: Joi.string().valid('development', 'staging', 'production')
 		}))
 	},
 	handler: async (request) => {
