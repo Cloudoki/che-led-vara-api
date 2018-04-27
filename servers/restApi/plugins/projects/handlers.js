@@ -11,6 +11,7 @@ const setProjects = {
 			ledBuild: Joi.number().integer(),
 			ledMonitor: Joi.number().integer(),
 			ledDeploy: Joi.number().integer(),
+			name: Joi.string().required(),
 			monitorUrl: Joi.string(),
 			environment: Joi.string().valid('development', 'staging', 'production')
 		})).min(1).required()
