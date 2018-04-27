@@ -5,21 +5,13 @@ const dbPath = __dirname + "/db.json";
 
 let db = require('./db.json');
 
+const save = (data) => fs.writeFileAsync(dbPath, JSON.stringify(data));
 
-const save = async (data) => {
-	return fs.writeFileAsync(dbPath, JSON.stringify(data))
-		.then((data) => {
-			db = data;
-			return db;
-		})
-};
-
-const get = () => {
-	return db;
-};
+const get = () => db;
 
 const set = async (data) => {
-	return await save(data);
+	db = data;
+	await save(data);
 };
 
 module.exports = {

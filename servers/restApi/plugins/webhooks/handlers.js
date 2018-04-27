@@ -3,7 +3,7 @@ const db = require('data');
 
 const handleEvent = {
 	description: 'Event Hooks',
-	handler: async (request) => {
+	handler: async (request, h) => {
 		console.log(request.payload);
 
 		return h.response().code(200);
