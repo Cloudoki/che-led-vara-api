@@ -14,8 +14,9 @@ module.exports = {
  
 			socket.on('auth', function (token) {
 				cleartimeout(timer);
-				if (!socket.authenticated && token === config.serverToken)
+				if (!socket.authenticated && token === config.serverToken) {
 					socket.authenticated = true;
+				}
 			});
 
 			// User quit chat events, release socket

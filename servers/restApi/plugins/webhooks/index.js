@@ -6,7 +6,7 @@ module.exports = {
 
 		server.route([
 			{
-				method: 'GET',
+				method: 'POST',
 				path: '/hooks/{id}',
 				options: handlers.handleEvent
 			}

@@ -42,12 +42,9 @@ const setProjects = {
 					break;
 				}
 			}
-			if (isNew) {
-				newProjConfs[i].hookId = pingService.ping(newProjConfs.id, newProjConfs.monitorUrl);
-			}
+			if (isNew && newProjConfs.monitorUrl && newProjConfs.ledMonitor) pingService.ping(newProjConfs.id, newProjConfs.monitorUrl, led);
 		}
 
-		console.log(await db.set(newProjConfs));
 		return h.response().code(200);
 	}
 };

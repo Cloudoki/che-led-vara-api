@@ -10,8 +10,9 @@ const stop = (projId) => {
 	delete pingTimers[projId];
 }
 
-const ping = async(projId, url) => {
+const ping = async(projId, url, pin) => {
 	if (pingTimers[projId] && pingTimers[projId].timer) clearTimeout(pingTimers[projId].timer);
+	
 
 	const options = {
 		uri: config.semaphore.v2BaseUrl + '/orgs/' + config.semaphore.organization + '/projects',
@@ -21,10 +22,10 @@ const ping = async(projId, url) => {
 	try {
 		let res = await request(db[projId].monitoringUrl)
 		// Send notification to arduino
-		io.sockets.emit('status', 'OK');
+		io.sockets.emit('status', { led: pin, res: 'OK' });
 	} catch (err) {
 		// Send notification to arduino
-		io.sockets.emit('status', 'FAILED');
+		io.sockets.emit('status', { led: pin, res: 'ERROR' });	 
 	}
 
 	pingTimers[projId] = {
@@ -33,8 +34,8 @@ const ping = async(projId, url) => {
 };
 
 for (let proj of db.get()) {
-	if(!proj.monitoringUrl) continue;
-	ping(proj.Id, proj.monitoringUrl)
+	if (!proj.monitorUrl || !proj.ledMonitor) continue;	
+	ping(proj.Id, proj.monitoringUrl, proj.ledMonitor)
 }
 
 module.exports = {

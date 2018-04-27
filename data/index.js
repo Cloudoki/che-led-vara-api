@@ -9,6 +9,13 @@ const save = (data) => fs.writeFileAsync(dbPath, JSON.stringify(data));
 
 const get = () => db;
 
+const getProject = (id) => {
+	for (let proj of db) {
+		if (proj.id === id) return proj;
+	}
+	return null;
+}
+
 const set = async (data) => {
 	db = data;
 	await save(data);
@@ -17,5 +24,6 @@ const set = async (data) => {
 module.exports = {
 	get,
 	set,
-	save
+	save,
+	getProject
 };
