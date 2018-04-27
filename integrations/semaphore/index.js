@@ -16,10 +16,7 @@ const listOrganizationProjects = async () => {
 const createWebHook = async (projectId) => {
 	const options = {
 		method: 'POST',
-    uri: config.semaphore.v1BaseUrl + '/projects/' + projectId + '/hooks',
-    headers: {
-			authorization: 'Token ' + config.semaphore.authToken
-    },
+    uri: config.semaphore.v1BaseUrl + '/projects/' + projectId + '/hooks?auth_token=' + config.semaphore.authToken,
 		body: {
 			url: config.publicHost + config.webhooksPath + projectId,
 			hook_type: "all"
@@ -33,10 +30,7 @@ const createWebHook = async (projectId) => {
 const deleteWebHook = async (projectId, hookId) => {
 	const options = {
 		method: 'DELETE',
-    uri: config.semaphore.baseUrl + '/projects/' + projectId + '/hooks/' + hookId,
-    headers: {
-			authorization: 'Token ' + config.semaphore.authToken
-    },
+    uri: config.semaphore.baseUrl + '/projects/' + projectId + '/hooks/' + hookId + '?auth_token=' + config.semaphore.authToken,
     json: true
 	};
 
