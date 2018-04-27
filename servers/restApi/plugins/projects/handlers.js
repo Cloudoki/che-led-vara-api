@@ -45,6 +45,8 @@ const setProjects = {
 			if (isNew && newProjConfs.monitorUrl && newProjConfs.ledMonitor) pingService.ping(newProjConfs.id, newProjConfs.monitorUrl, led);
 		}
 
+		await db.set(newProjConfs)
+
 		return h.response().code(200);
 	}
 };
