@@ -3,14 +3,14 @@ const request = require('request-promise');
 const io = require('servers/socketIo/io')
 const config = require('config');
 
-let pingTasks = {};
+let pingTimers = {};
 
 const stop = (projId) => {
 	if (pingTimers[projId] && pingTimers[projId].timer) clearTimeout(pingTimers[projId].timer);
 	delete pingTimers[projId];
 }
 
-const ping = async(id, url) => {
+const ping = async(projId, url) => {
 	if (pingTimers[projId] && pingTimers[projId].timer) clearTimeout(pingTimers[projId].timer);
 
 	const options = {
@@ -27,7 +27,9 @@ const ping = async(id, url) => {
 		io.sockets.emit('status', 'FAILED');
 	}
 
-	pingTimers[projId].timer = setTimeout(ping, 300000)
+	pingTimers[projId] = {
+		timer: setTimeout(ping, 300000)
+	}
 };
 
 for (let proj of db.get()) {

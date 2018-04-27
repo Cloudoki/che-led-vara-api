@@ -6,16 +6,16 @@ const pingService = require('services/ping')
 const setProjects = {
 	description: 'Adds/replaces projects',
 	validate: {
-		payload: Joi.array().items(Joi.object({
+		payload: Joi.array().items(Joi.object().keys({
 			id: Joi.string().required(),
 			ledBuild: Joi.number().integer(),
 			ledMonitor: Joi.number().integer(),
 			ledDeploy: Joi.number().integer(),
 			monitorUrl: Joi.string(),
 			environment: Joi.string().valid('development', 'staging', 'production')
-		}))
+		})).min(1).required()
 	},
-	handler: async (request) => {
+	handler: async (request, h) => {
 		let newProjConfs = request.payload;
 
 		// Delete webhooks for each removed project, if any
@@ -36,7 +36,7 @@ const setProjects = {
 			let isNew = true;
 	
 			for (let storedConf of db.get()) {
-				if (storedConf.id === newConf.id) {
+				if (storedConf.id === newProjConfs[i].id) {
 					isNew = false;
 					break;
 				}
@@ -46,7 +46,8 @@ const setProjects = {
 			}
 		}
 
-		return await db.set(newProjConfs);
+		console.log(await db.set(newProjConfs));
+		return h.response().code(200);
 	}
 };
 
