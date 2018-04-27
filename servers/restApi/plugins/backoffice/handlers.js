@@ -7,7 +7,7 @@ module.exports.dashboardView = {
 	description: 'Serves dashboard',
 	handler: async (request, h) => {
 		const projectsWithoutLed = await sempahoreApiClient.listOrganizationProjects();
-		const projectsWithLed = await db.get();
+		const projectsWithLed = db.get();
 		const data = {
 			projects: projectsWithLed,
 			freeProjects: projectsWithoutLed,

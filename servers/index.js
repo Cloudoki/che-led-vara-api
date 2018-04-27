@@ -2,9 +2,7 @@ const restApi = require('servers/restApi');
 const rtServer = require('servers/socketIo');
 const db = require('data');
 
-db.load()
-	.then(() => console.log('Data loaded'))
-	.then(() => Promise.all([restApi, rtServer]))
+Promise.all([restApi, rtServer])
 	.then(() => console.log('Servers are up'))
 	.then(() => require('services/ping'))
 	.catch((err) => {

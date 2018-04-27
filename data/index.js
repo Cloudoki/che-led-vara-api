@@ -3,31 +3,10 @@ const fs = bbPromise.promisifyAll(require('fs'));
 
 const dbPath = __dirname + "/db.json";
 
-let db = [];
+let db = require('./db.json');
 
-/** 
- * Db structure
- * 
- * {	
- * 		UUID: {
- * 				leds: {
- * 						build: 1
- * 						status: 2
- * 				},
- * 				monitoringUrl: "blabla.com"
- * 		}
- * }
- */
 
-const load = () => {
-	return fs.readFileAsync(dbPath)
-		.then((data) => {
-			db = data;
-			return db;
-		})
-};
-
-const save = (data) => {
+const save = async (data) => {
 	return fs.writeFileAsync(dbPath, JSON.stringify(data))
 		.then((data) => {
 			db = data;
@@ -40,13 +19,11 @@ const get = () => {
 };
 
 const set = async (data) => {
-	db = data;
-	return save(data);
+	return await save(data);
 };
 
 module.exports = {
 	get,
 	set,
-	load,
 	save
 };
