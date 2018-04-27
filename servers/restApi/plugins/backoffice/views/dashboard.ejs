@@ -8,7 +8,7 @@
             <ul class="list-group" id="project_list">
                 <% projectsWithLed.forEach(function (project,index) { %>
                     <a class="list-group-item <%if (index % 2  == 0) { %> list-group-item-info <% } else { %> list-group-item-secondary <% } %> projects_with_leds " data-id="<%=project.semaphoreId%>"
-                        data-led="<%=project.led%>" data-title="<%=project.name%>" 
+                        data-led="<%=project.ledBuild%>" data-title="<%=project.name%>" 
                         data-ledmonitor="<%=project.ledMonitor%>" data-monitorUrl="<%=project.monitorUrl%>" 
                         data-leddeploy="<%=project.ledDeploy%>" data-uuid="<%=project.id%>"
                         data-environment="<%=project.environment%>"
@@ -16,6 +16,15 @@
                         <div class="bmd-list-group-col">
                             <p class="list-group-item-heading"><%=project.name%> [<%=project.environment%>]</p>
                             <p class="list-group-item-text"><%=hooksUrl%><%=project.id%></p>
+                            <p class="list-group-item-text">
+                                <span class="badge badge-success">Build LED: <%=project.ledBuild%></span>
+                                <% if (project.ledMonitor) { %>
+                                <span class="badge badge-danger">Monitor LED: <%=project.ledMonitor%></span>
+                                <% } %>
+                                <% if (project.ledDeploy) { %>
+                                <span class="badge badge-warning">Deploy LED: <%=project.ledDeploy%></span>
+                                <% } %>
+                            </p>
                         </div>
                         <span class="label label-default label-pill remove_project">X</span>
                     </a>
@@ -40,16 +49,16 @@
                     </select>
                 </div>   
                 <div class="form-group" >
-                    <input type"text" id="ping_url" class="form-control" placeholder="Monitor URL(optional)"/>
-                </div>
-                <div class="form-group" >
                     <input type"number" id="led_number" class="form-control" placeholder="Led Build" required/>
                 </div>
                 <div class="form-group" >
-                    <input type"number" id="led_monitor" class="form-control" placeholder="Led Monitor(opt)" required/>
+                    <input type"number" id="led_monitor" class="form-control" placeholder="Led Monitor (optional)" required/>
                 </div>
                 <div class="form-group" >
-                    <input type"number" id="led_deploy" class="form-control" placeholder="Deploy led" required/>
+                    <input type"number" id="led_deploy" class="form-control" placeholder="Deploy led (optional)" required/>
+                </div>
+                <div class="form-group" >
+                    <input type"text" id="ping_url" class="form-control" placeholder="Monitor URL (optional)"/>
                 </div>
                 <div class="form-group" >
                     <button class="btn  btn-success" id="add_project_button" type="button">Add project</button>    

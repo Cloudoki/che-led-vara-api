@@ -9,7 +9,6 @@ module.exports.dashboardView = {
 	handler: async (request, h) => {
 		const projectsWithoutLed = await sempahoreApiClient.listOrganizationProjects();
 		const projectsWithLed = db.get();
-		console.log(config)
 		const data = {
 			projectsWithLed: projectsWithLed,
 			projectsWithoutLed: projectsWithoutLed,
