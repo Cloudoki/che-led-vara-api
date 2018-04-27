@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const semaphoreApi = require('integrations/semaphore');
 const db = require('data');
+const pingService = require('services/ping')
 
 const setProjects = {
 	description: 'Lists existing users',
@@ -9,6 +10,7 @@ const setProjects = {
 			id: Joi.string().required(),
 			ledBuild: Joi.number().integer(),
 			ledMonitor: Joi.number().integer(),
+			ledDeploy: Joi.number().integer(),
 			monitorUrl: Joi.string()
 		}))
 	},
@@ -25,7 +27,7 @@ const setProjects = {
 					break;
 				}
 			}
-			if (!exists) await semaphoreApi.deleteWebHook(storedConf.id, storedConf.hookId)
+			if (!exists) await pingService.stop(storedConf.id)
 		}
 
 		// Add webhooks for each new project
@@ -39,7 +41,7 @@ const setProjects = {
 				}
 			}
 			if (isNew) {
-				newProjConfs[i].hookId = semaphoreApi.createWebHook(newProjConfs.id);
+				newProjConfs[i].hookId = pingService.ping(newProjConfs.id, newProjConfs.monitorUrl);
 			}
 		}
 

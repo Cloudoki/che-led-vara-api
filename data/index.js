@@ -9,13 +9,12 @@ let db = [];
  * Db structure
  * 
  * {	
- * 		semaphoreId: {
+ * 		UUID: {
  * 				leds: {
  * 						build: 1
  * 						status: 2
  * 				},
- * 				monitoringUrl: "blabla.com",
- * 				hookId: 345
+ * 				monitoringUrl: "blabla.com"
  * 		}
  * }
  */
@@ -47,5 +46,7 @@ const set = async (data) => {
 
 module.exports = {
 	get,
-	set
+	set,
+	load,
+	save
 };
