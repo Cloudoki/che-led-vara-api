@@ -2,7 +2,7 @@ const Hapi = require('hapi');
 const plugins = require('servers/restApi/plugins');
 const config = require('config');
 
-const server = Hapi.server(config.servers.restApi);
+const server = Hapi.server(config.servers.restApi.config);
 
 // Print incoming requests
 server.events.on('response', (request) => {
