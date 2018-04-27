@@ -10,12 +10,12 @@
                     <a class="list-group-item" data-id="<%=project.semaphoreId%>"
                         data-led="<%=project.led%>" data-title="<%=project.title%>" 
                         data-ledmonitor="<%=project.ledMonitor%>" data-monitorUrl="<%=project.monitorUrl%>" 
-                        data-leddeploy="<%=project.ledDeploy%>" data-uuid="<%=project.internalId%>"
+                        data-leddeploy="<%=project.ledDeploy%>" data-uuid="<%=project.id%>"
                         data-environment="<%=project.environment%>"
                         >
                         <div class="bmd-list-group-col">
                             <p class="list-group-item-heading"><%=project.title%></p>
-                            <p class="list-group-item-text"><%=hooksUrl%><%=project.internalId%></p>
+                            <p class="list-group-item-text"><%=hooksUrl%><%=project.id%></p>
                         </div>
                         <span class="label label-default label-pill remove_project">X</span>
                     </a>

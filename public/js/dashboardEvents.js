@@ -92,7 +92,8 @@ function saveProjects() {
         var dataElement = {
             id: $(this).data("uuid"),
             ledBuild: $(this).data("led"),
-            environment: $(this).data("environment")
+            environment: $(this).data("environment"),
+            name: $(this).data("title")
         };
         if(ledMonitor) dataElement.ledMonitor = ledMonitor;
         if(leddeploy) dataElement.ledDeploy = leddeploy;
